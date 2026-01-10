@@ -117,15 +117,15 @@ with st.expander("所有類別"):
         #with st.expander("觀測者"):
         st.header("拍攝天體")
         category31_options = {
-            "M51 漩渦星系": {"index":1,"dimension_x":11,"dimension_y":7,"target_mag":21.3,"img_name":"m51-hubble-cr.tif"}, #https://science.nasa.gov/asset/hubble/out-of-this-whirl-the-whirlpool-galaxy-m51-and-companion-galaxy/
+            "M51 漩渦星系": {"index":1,"dimension_x":11,"dimension_y":7,"target_mag":21.3,"img_name":"m51-hubble-cr.tif", "file_id":"13R2ACNNVdyVIyPvz6Y_aR-JaV-moDBkN"}, #https://science.nasa.gov/asset/hubble/out-of-this-whirl-the-whirlpool-galaxy-m51-and-companion-galaxy/
             # 11477 x 7965
-            "M81 波德星系": {"index":2,"dimension_x":27,"dimension_y":14,"target_mag":21.6,"img_name":"m81-hubble-cr.tif"}, #https://science.nasa.gov/asset/hubble/hubble-photographs-grand-design-spiral-galaxy-m81/
+            "M81 波德星系": {"index":2,"dimension_x":27,"dimension_y":14,"target_mag":21.6,"img_name":"m81-hubble-cr.tif", "file_id":"1CzrbNVz_4K30yd2BweMdDxnnNuL_WcPQ"}, #https://science.nasa.gov/asset/hubble/hubble-photographs-grand-design-spiral-galaxy-m81/
             # 22620 x 15200
-            "M8 礁湖星雲": {"index":3,"dimension_x":90,"dimension_y":54,"target_mag":22.0,"img_name":"m8-verarubin-cr.tif"}, #https://rubinobservatory.org/gallery/collections/first-look-gallery/n4kvj0cemd5pbdqgtjdgp2jg2t
+            "M8 礁湖星雲": {"index":3,"dimension_x":90,"dimension_y":54,"target_mag":22.0,"img_name":"m8-verarubin-cr.tif", "file_id":"1yw7kIl1pJxWA2fIpCnlylZrZnTDz1x9X"}, #https://rubinobservatory.org/gallery/collections/first-look-gallery/n4kvj0cemd5pbdqgtjdgp2jg2t
             # 10000 x 6131
-            "M57 環狀星雲": {"index":4,"dimension_x":8,"dimension_y":8,"target_mag":20.8,"img_name":"m57-hubble.tif"}, #https://science.nasa.gov/asset/hubble/the-ring-nebula-m57/
+            "M57 環狀星雲": {"index":4,"dimension_x":8,"dimension_y":8,"target_mag":20.8,"img_name":"m57-hubble.tif", "file_id":"10bjvBX-kffVZewulfx5yxihvnAERmTA_"}, #https://science.nasa.gov/asset/hubble/the-ring-nebula-m57/
             # 3179 x 3179
-            "C42 星團": {"index":5,"dimension_x":20,"dimension_y":20,"target_mag":21.2,"img_name":"c42-hubble.tif"}, #https://esahubble.org/images/potw1137a/
+            "C42 星團": {"index":5,"dimension_x":20,"dimension_y":20,"target_mag":21.2,"img_name":"c42-hubble.tif", "file_id":"1NbqETsmOUgD-Z_jCNYYER06H1YIpsY5L"}, #https://esahubble.org/images/potw1137a/
             # 3851 x 3851
         }
 
@@ -135,6 +135,7 @@ with st.expander("所有類別"):
         dimension_y = category31_options[category31]["dimension_y"]
         img_file_name = category31_options[category31]["img_name"]
         target_mag = category31_options[category31]["target_mag"]
+        file_id = category31_options[category31]["file_id"]
 
         st.metric("深空天體大小", f"{dimension_x:.0f}' x {dimension_y:.0f}'")
 
@@ -643,9 +644,16 @@ from skimage.filters import gaussian
 import numpy as np
 
 #@st.cache_data
-def load_image(path):
-    img = Image.open(path)
-    return img
+#def load_image(path):
+#    img = Image.open(path)
+#    return img
+#img = load_image(f"img/{img_file_name}")
+
+import requests
+from io import BytesIO
+url = f"https://drive.google.com/uc?export=download&id={file_id}"
+response = requests.get(url)
+img = Image.open(BytesIO(response.content))
 
 def resize_and_crop(img, frame_x, frame_y, imgsize):
     w, h = img.size
@@ -766,7 +774,7 @@ def closeup_original(_img_original, img_resized, width):
 
 # --- Main Execution ---
 
-img = load_image(f"img/{img_file_name}")
+
 if process_btn:
     if snr < 1:
         warning_placeholder.warning("訊噪比小於1")
