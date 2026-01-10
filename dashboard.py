@@ -661,8 +661,8 @@ def download_image_bytes(url):
 
 def load_image(url):
     img_bytes = download_image_bytes(url)
-    img = Image.open(BytesIO(img_bytes))
-    return img
+    with Image.open(BytesIO(img_bytes)) as img:
+        return img.copy()
 
 #url = f"https://drive.google.com/uc?export=download&id={file_id}"
 
