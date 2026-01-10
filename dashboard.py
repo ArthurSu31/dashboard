@@ -117,15 +117,15 @@ with st.expander("所有類別"):
         #with st.expander("觀測者"):
         st.header("拍攝天體")
         category31_options = {
-            "M51 漩渦星系": {"index":1,"dimension_x":11,"dimension_y":7,"target_mag":21.3,"img_name":"m51-hubble-cr.tif", "file_id":"13R2ACNNVdyVIyPvz6Y_aR-JaV-moDBkN"}, #https://science.nasa.gov/asset/hubble/out-of-this-whirl-the-whirlpool-galaxy-m51-and-companion-galaxy/
+            "M51 漩渦星系": {"index":1,"dimension_x":11,"dimension_y":7,"target_mag":21.3,"img_name":"m51-hubble-cr.tif", "file_id":"13R2ACNNVdyVIyPvz6Y_aR-JaV-moDBkN", "url": "https://www.dropbox.com/scl/fi/c1rqjhafap90o7pw1ld07/m51-hubble-cr.tif?rlkey=g1q00bdkgtg050hm2ej85389j&st=sr15tpmp&dl=1"}, #https://science.nasa.gov/asset/hubble/out-of-this-whirl-the-whirlpool-galaxy-m51-and-companion-galaxy/
             # 11477 x 7965
-            "M81 波德星系": {"index":2,"dimension_x":27,"dimension_y":14,"target_mag":21.6,"img_name":"m81-hubble-cr.tif", "file_id":"1CzrbNVz_4K30yd2BweMdDxnnNuL_WcPQ"}, #https://science.nasa.gov/asset/hubble/hubble-photographs-grand-design-spiral-galaxy-m81/
+            "M81 波德星系": {"index":2,"dimension_x":27,"dimension_y":14,"target_mag":21.6,"img_name":"m81-hubble-cr.tif", "file_id":"1CzrbNVz_4K30yd2BweMdDxnnNuL_WcPQ", "url": "https://www.dropbox.com/scl/fi/n2wdgo35cu2yi6caowvnp/m81-hubble-cr.tif?rlkey=gvy4dzcbsy18qb9gh01joljav&st=jq50l38j&dl=1"}, #https://science.nasa.gov/asset/hubble/hubble-photographs-grand-design-spiral-galaxy-m81/
             # 22620 x 15200
-            "M8 礁湖星雲": {"index":3,"dimension_x":90,"dimension_y":54,"target_mag":22.0,"img_name":"m8-verarubin-cr.tif", "file_id":"1yw7kIl1pJxWA2fIpCnlylZrZnTDz1x9X"}, #https://rubinobservatory.org/gallery/collections/first-look-gallery/n4kvj0cemd5pbdqgtjdgp2jg2t
+            "M8 礁湖星雲": {"index":3,"dimension_x":90,"dimension_y":54,"target_mag":22.0,"img_name":"m8-verarubin-cr.tif", "file_id":"1yw7kIl1pJxWA2fIpCnlylZrZnTDz1x9X", "url": "https://www.dropbox.com/scl/fi/jwdscz2g8fb1di4lpvi96/m8-verarubin-cr.tif?rlkey=lpx75fxr28qtsm8k5863vncgs&st=zejmlu31&dl=1"}, #https://rubinobservatory.org/gallery/collections/first-look-gallery/n4kvj0cemd5pbdqgtjdgp2jg2t
             # 10000 x 6131
-            "M57 環狀星雲": {"index":4,"dimension_x":8,"dimension_y":8,"target_mag":20.8,"img_name":"m57-hubble.tif", "file_id":"10bjvBX-kffVZewulfx5yxihvnAERmTA_"}, #https://science.nasa.gov/asset/hubble/the-ring-nebula-m57/
+            "M57 環狀星雲": {"index":4,"dimension_x":8,"dimension_y":8,"target_mag":20.8,"img_name":"m57-hubble.tif", "file_id":"10bjvBX-kffVZewulfx5yxihvnAERmTA_", "url": "https://www.dropbox.com/scl/fi/pyzx2pj7cq283vterrdcm/m57-hubble.tif?rlkey=sm8a49v7rb9u58yjto85hli4m&st=s4fde1wq&dl=1"}, #https://science.nasa.gov/asset/hubble/the-ring-nebula-m57/
             # 3179 x 3179
-            "C42 星團": {"index":5,"dimension_x":20,"dimension_y":20,"target_mag":21.2,"img_name":"c42-hubble.tif", "file_id":"1NbqETsmOUgD-Z_jCNYYER06H1YIpsY5L"}, #https://esahubble.org/images/potw1137a/
+            "C42 星團": {"index":5,"dimension_x":20,"dimension_y":20,"target_mag":21.2,"img_name":"c42-hubble.tif", "file_id":"1NbqETsmOUgD-Z_jCNYYER06H1YIpsY5L", "url": "https://www.dropbox.com/scl/fi/hvdt1wl3wsafhuumclh96/c42-hubble.tif?rlkey=wmt7d1xxp8xzjfzidsbl7nkrl&st=x02zmzr0&dl=1"}, #https://esahubble.org/images/potw1137a/
             # 3851 x 3851
         }
 
@@ -135,7 +135,8 @@ with st.expander("所有類別"):
         dimension_y = category31_options[category31]["dimension_y"]
         img_file_name = category31_options[category31]["img_name"]
         target_mag = category31_options[category31]["target_mag"]
-        file_id = category31_options[category31]["file_id"]
+#        file_id = category31_options[category31]["file_id"]
+        url =  category31_options[category31]["url"]
 
         st.metric("深空天體大小", f"{dimension_x:.0f}' x {dimension_y:.0f}'")
 
@@ -651,7 +652,7 @@ import numpy as np
 
 import requests
 from io import BytesIO
-url = f"https://drive.google.com/uc?export=download&id={file_id}"
+#url = f"https://drive.google.com/uc?export=download&id={file_id}"
 response = requests.get(url)
 img = Image.open(BytesIO(response.content))
 
