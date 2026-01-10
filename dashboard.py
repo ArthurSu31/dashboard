@@ -653,7 +653,7 @@ import numpy as np
 import requests
 from io import BytesIO
 
-@st.cache_data(show_spinner=False)
+#@st.cache_data(show_spinner=False)
 def download_image_bytes(url):
     response = requests.get(url)
     response.raise_for_status()
