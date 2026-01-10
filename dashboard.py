@@ -607,7 +607,7 @@ sky_electron_flux = 10.9*pixel_size*pixel_size*np.power(0.398,sky_sqm-20)
 
 quantum_eff = 0.5
 
-snr = np.sqrt(actual_duration_hr*3600)*target_electron_flux*quantum_eff/np.sqrt((target_electron_flux+sky_electron_flux)*quantum_eff+read_noise*10/single_shot_time)*(1+snr_boost)/20
+snr = np.sqrt(actual_duration_hr*3600)*target_electron_flux*quantum_eff/np.sqrt((target_electron_flux+sky_electron_flux)*quantum_eff+read_noise*10/single_shot_time)*(1+snr_boost)/35
 
 if "除霧線" not in var13:
     seeing_multiplier = 1 + resolution_loss
