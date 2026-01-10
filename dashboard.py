@@ -652,9 +652,21 @@ import numpy as np
 
 import requests
 from io import BytesIO
+
+@st.cache_data(show_spinner=False)
+def download_image_bytes(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    return response.content  # cache raw bytes on disk
+
+def load_image(url):
+    img_bytes = download_image_bytes(url)
+    img = Image.open(BytesIO(img_bytes))
+    return img
+
 #url = f"https://drive.google.com/uc?export=download&id={file_id}"
-response = requests.get(url)
-img = Image.open(BytesIO(response.content))
+
+img = load_image(url)
 
 def resize_and_crop(img, frame_x, frame_y, imgsize):
     w, h = img.size
